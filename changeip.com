@@ -3,7 +3,7 @@
 :global ddnshost "*1"
 :global ddnsinterface "ether-gateway or PPPoE-dialup"
 
-# end edit
+# END EDIT
 
 :global ddnssystem ("mt-" . [/system package get [/system package find name=system] version] )
 :global ddnsip [ /ip address get [/ip address find interface=$ddnsinterface] address ]

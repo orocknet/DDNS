@@ -1,0 +1,17 @@
+:local inetInterface "ether-gateway or PPPoE-dialup"
+:local hostname "namedomain.com"
+:local password "API-Key"
+
+# Enable console debug:
+#:local debugout do={ :put ("DEBUG: " . [:tostr $1]); }
+# Disable console debug:
+:local debugout do={ :log debug $1; }
+:global ddnsCurrentIp
+:local newip [/ip address get [find interface=$inetInterface] address]
+:if ($newip != $ddnsCurrentIp) do={
+  :log info ("Updating DDNS from '$ddnsCurrentIp' to '$newip'")
+  :set ddnsCurrentIp $newip
+  /tool fetch mode=https url="https://$hostname:$password@dyn.dns.he.net/nic/update?hostname=$hostname" keep-result=no
+} else={
+  $debugout ("No DDNS update needed")
+}

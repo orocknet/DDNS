@@ -1,5 +1,6 @@
-# Update Hurricane Electric IPv6 Tunnel Client IPv4 address
-
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# /system scheduler add interval=5m name=ipv6tunnelbroker on-event="/system script run ipv6tunnelbroker" start-time=00:00:00
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :local HEtunnelinterface "sit1"
 :local HEtunnelid "123456"
 :local HEuserid "userlogin"

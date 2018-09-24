@@ -1,3 +1,6 @@
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# /system scheduler add interval=5m name=changeip.com on-event="/system script run changeip" start-time=00:00:00
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :global ddnsuser "userlogin"
 :global ddnspass "passwdlogin"
 :global ddnshost "*1"

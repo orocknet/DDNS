@@ -1,3 +1,6 @@
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# /system scheduler add interval=5m name=dashboard.opendns.com on-event="/system script run dashboard.opendns.com" start-time=00:00:00
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :local odnsuser "user@mail.com"
 :local odnspass "passwdlogin"
 :local odnshost "Your-networks-LABEL"

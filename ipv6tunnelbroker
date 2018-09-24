@@ -1,6 +1,6 @@
 # Update Hurricane Electric IPv6 Tunnel Client IPv4 address
 
-:local HEtunnelinterface "name-interface"
+:local HEtunnelinterface "sit1"
 :local HEtunnelid "123456"
 :local HEuserid "userlogin"
 :local HEmd5pass "Update-Key"

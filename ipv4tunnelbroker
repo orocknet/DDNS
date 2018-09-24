@@ -1,3 +1,6 @@
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# /system scheduler add interval=5m name=ipv4tunnelbroker on-event="/system script run ipv4tunnelbroker" start-time=00:00:00
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :local inetInterface "ether-gateway or PPPoE-dialup"
 :local hostname "namedomain.com"
 :local password "API-Key"

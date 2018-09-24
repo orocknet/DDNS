@@ -1,0 +1,46 @@
+# Update Hurricane Electric IPv6 Tunnel Client IPv4 address
+
+:local HEtunnelinterface "name-interface"
+:local HEtunnelid "123456"
+:local HEuserid "userlogin"
+:local HEmd5pass "Update-Key"
+:local HEupdatehost "ipv4.tunnelbroker.net"
+:local HEupdatepath "/nic/update"
+:local WANinterface "ether-gateway or PPPoE-dialup"
+:local outputfile ("HE-" . $HEtunnelid . ".txt")
+
+## END EDIT
+
+# Internal processing below...
+# ----------------------------------
+:local HEipv4addr
+
+# Get WAN interface IP address
+:set HEipv4addr [/ip address get [/ip address find interface=$WANinterface] address]
+:set HEipv4addr [:pick [:tostr $HEipv4addr] 0 [:find [:tostr $HEipv4addr] "/"]]
+
+:if ([:len $HEipv4addr] = 0) do={
+   :log error ("Could not get IP for interface " . $WANinterface)
+   :error ("Could not get IP for interface " . $WANinterface)
+}
+
+# Update the HEtunnelinterface with WAN IP
+/interface 6to4 {
+   :if ([get ($HEtunnelinterface) local-address] != $HEipv4addr) do={
+      :log info ("Updating " . $HEtunnelinterface . " local-address with new IP " . $HEipv4addr . "...")
+      set ($HEtunnelinterface) local-address=$HEipv4addr
+   }
+}
+
+:log info ("Updating IPv6 Tunnel " . $HEtunnelid . " Client IPv4 address to new IP " . $HEipv4addr . "...")
+/tool fetch mode=https \
+                  host=($HEupdatehost) \
+                  url=("https://" . $HEupdatehost . $HEupdatepath . \
+                          "?hostname=" . $HEtunnelid . \
+                          "&myip=" . $HEipv4addr) \
+                  user=($HEuserid) \
+                  password=($HEmd5pass) \
+                  dst-path=($outputfile)
+                  
+:log info ([/file get ($outputfile) contents])
+/file remove ($outputfile)

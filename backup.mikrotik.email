@@ -1,8 +1,8 @@
 ## /tool e-mail set address=smtp.gmail.com from=user@gmail.com password=loginpw port=587 start-tls=yes user=user@gmail.com
-## /system scheduler add interval=1d name=backupmikrotik on-event="/system script run backupmikrotik" start-time=03:30:00
+## /system scheduler add interval=1d name=backup-mikrotik on-event="/system script run backup-mikrotik" start-time=03:30:00
 ### catatan: akun gmail harus insecure. https://myaccount.google.com/security?pli=1#connectedapps "Izinkan aplikasi kurang aman"
 ### ada baiknya gunakan akun khusus untuk backup mikrotik saja.
-#
+
 :log warning "Starting to send settings backup-mail"
 /system backup save name=email
 /export file=backup.rsc
@@ -11,3 +11,8 @@
 :delay 5
 /tool e-mail send  to="user@gmail.com"  subject=([/system identity get name] . "-RSC Backup")  file=backup.rsc
 :log warning "Finished to send settings backup-mail"
+
+# :delay 5
+# :log warning "Deleting backup in file list"
+# /file remove backup.rsc
+# /file remove email.backup
